@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:13
+    container_name: crypto_pos_db
+    environment:
+      POSTGRES_DB: crypto_pos_db
+      POSTGRES_USER: crypto_pos_user
+      POSTGRES_PASSWORD: crypto_pos_password
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  app:
+    image: node:16
+    container_name: crypto_pos_app
+    working_dir: /usr/src/app
+    volumes:
+      - .:/usr/src/app
+    command: bash -c "pnpm install && pnpm run start:dev"
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
