@@ -9,19 +9,20 @@ services:
       POSTGRES_USER: crypto_pos_user
       POSTGRES_PASSWORD: crypto_pos_password
     ports:
-      - '5432:5432'
+      - '5432:5432' 
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
   app:
-    image: node:16
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: crypto_pos_app
     working_dir: /usr/src/app
     volumes:
       - .:/usr/src/app
-    command: bash -c "pnpm install && pnpm run start:dev"
     ports:
-      - '8080:8080'
+      - '3000:3000'
     depends_on:
       - db
 
