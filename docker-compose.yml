@@ -9,7 +9,7 @@ services:
       POSTGRES_USER: crypto_pos_db_user
       POSTGRES_PASSWORD: crypto_pos_password_user
     ports:
-      - '5432:5432' 
+      - '5432:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
@@ -22,7 +22,7 @@ services:
     volumes:
       - .:/usr/src/app
     ports:
-      - '3000:3000'
+      - '9000:9000'
     depends_on:
       - db
 
