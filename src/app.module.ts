@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { HttpModule } from '@nestjs/axios';
 import { MerchantModule } from './merchant/merchant.module';
+import { PaymentModule } from './payment/payment.module';
 import configuration from './config/configuration';
 
 @Module({
@@ -27,6 +28,7 @@ import configuration from './config/configuration';
     }),
     HttpModule,
     MerchantModule,
+    PaymentModule,
   ],
   controllers: [],
   providers: [],
