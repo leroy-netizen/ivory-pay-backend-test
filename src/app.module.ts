@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { HttpModule } from '@nestjs/axios';
+import { HttpModule, HttpService } from '@nestjs/axios';
 import { MerchantModule } from './merchant/merchant.module';
 import { PaymentModule } from './payment/payment.module';
+import { SettlementModule } from './settlement/settlement.module';
 import configuration from './config/configuration';
 
 @Module({
@@ -26,9 +27,17 @@ import configuration from './config/configuration';
         synchronize: true,
       }),
     }),
-    HttpModule,
+    HttpModule.registerAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        timeout: 5000,
+        maxRedirects: 5,
+      }),
+      inject: [ConfigService],
+    }),
     MerchantModule,
     PaymentModule,
+    SettlementModule,
   ],
   controllers: [],
   providers: [],
